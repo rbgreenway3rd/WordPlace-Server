@@ -1,9 +1,9 @@
 from django.db import models
-from .User import User
+from django.contrib.auth.models import User
 
 
 class CreatedWords(models.Model):
-    userId = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     word = models.CharField(max_length=30)
     pronunciation = models.CharField(max_length=40)
     definition = models.CharField(max_length=50)
