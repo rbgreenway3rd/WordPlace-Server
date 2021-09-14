@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "Iamthe3rd!",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "rbgreenway",
+      "first_name": "Roger",
+      "last_name": "Greenway",
+      "email": "3rdgreenway@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-09-14T15:22:02.989Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "model": "wordplaceapi.CreatedWords",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "word": "Rogerify",
+      "pronunciation": "Ra-jur-if-eye",
+      "definition": "To make something have the qualities of, or show the properties of, Roger Greenway",
+      "partOfSpeech": "verb",
+      "example": "Cody Jones became rogerified after spending too much time with Roger Greenway"
+    }
+  }
+]
