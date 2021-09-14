@@ -1,0 +1,14 @@
+[
+  {
+    "model": "wordplaceapi.FavoritedWords",
+    "pk": 1,
+    "fields": {
+      "uuid": "0d01b967-971f-4ec5-8fe0-10513d29c39b",
+      "user": 1,
+      "word": "voluminous",
+      "definition": "having or marked by great volume or bulk : large; also : full",
+      "partOfSpeech": "adjective",
+      "link": "https://www.dictionaryapi.com/api/v3/references/collegiate/json/voluminous?key=4f56b21a-9585-4fcf-a279-f8571f143e0d"
+    }
+  }
+]
