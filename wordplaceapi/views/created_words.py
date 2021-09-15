@@ -1,4 +1,4 @@
-"""View module for handling requests about game types"""
+"""View module for handling requests about user-created words"""
 from django.http import HttpResponseServerError
 from django.contrib.auth.models import User  # pylint:disable=imported-auth-user
 from rest_framework.viewsets import ViewSet
