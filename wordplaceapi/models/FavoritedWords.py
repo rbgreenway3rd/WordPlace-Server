@@ -9,7 +9,7 @@ class FavoritedWords(models.Model):
     #     Null=False,
     # )
     uuid = models.CharField(max_length=200)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # foreign key
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # foreign key
     word = models.CharField(max_length=30)
     definition = models.CharField(max_length=200)
     partOfSpeech = models.CharField(max_length=20)
