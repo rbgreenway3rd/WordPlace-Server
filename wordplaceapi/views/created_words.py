@@ -1,19 +1,23 @@
 """View module for handling requests about game types"""
 from django.http import HttpResponseServerError
+from django.contrib.auth.models import User  # pylint:disable=imported-auth-user
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from wordplaceapi.models import CreatedWords
+from wordplaceapi.models import CreatedWords  # pylint:disable=imported-auth-user
 
 
 class CreatedWordsSerializer(serializers.ModelSerializer):
     """JSON serializer for user-created words"""
     class Meta:
         model = CreatedWords
+        url = serializers.HyperlinkedIdentityField(
+            view_name='user', lookup_field='id')
         fields = ('id', 'user', 'word', 'pronunciation',
                   'definition', 'partOfSpeech', 'example')
+        # depth = 1
 
 
 class CreatedWordsView(ViewSet):
@@ -58,8 +62,8 @@ class CreatedWordsView(ViewSet):
         """
 
         new_created_word = CreatedWords()
-        new_created_word.user = CreatedWords.objects.get(
-            user=request.auth.user)
+        new_created_word.user = User.objects.get(
+            id=request.auth.user.id)
         new_created_word.word = request.data["word"]
         new_created_word.pronunciation = request.data["pronunciation"]
         new_created_word.definition = request.data["definition"]
@@ -81,8 +85,8 @@ class CreatedWordsView(ViewSet):
             HTTP/1.1 204 No Content
         """
         created_word = CreatedWords.objects.get(pk=pk)
-        created_word.user = CreatedWords.objects.get(
-            user=request.auth.user)
+        created_word.user = User.objects.get(
+            id=request.auth.user.id)
         created_word.word = request.data["word"]
         created_word.pronunciation = request.data["pronunciation"]
         created_word.definition = request.data["definition"]
