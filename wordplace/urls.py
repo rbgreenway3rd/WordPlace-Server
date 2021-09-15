@@ -19,13 +19,14 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from wordplaceapi.views import register_user, login_user
-from wordplaceapi.models import *
-from wordplaceapi.views import *
+from wordplaceapi.views import *  # pylint: disable=wildcard-import
 
 # pylint: disable=invalid-name
 router = routers.DefaultRouter(trailing_slash=False)
 
+# router.register utilizes->  path('', include(router.urls))  <-seen in urlpatterns
 router.register(r'createdwords', CreatedWordsView, 'createdword')
+router.register(r'favoritedwords', FavoritedWordsView, 'favoritedword')
 
 urlpatterns = [
     path('', include(router.urls)),
