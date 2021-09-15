@@ -1,9 +1,13 @@
+import json
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User  # pylint:disable=imported-auth-user
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework import status
 
 # from wordplaceapi.models import
 
@@ -59,7 +63,8 @@ def register_user(request):
     # Now save the extra info in the levelupapi_gamer table
 
     # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(new_user)
+
+    token = Token.objects.create(user=new_user)
     # Return the token to the client
-    data = {'token': token.key}
+    data = json.dumps({'token': token.key, "id": new_user.id})
     return Response(data)
