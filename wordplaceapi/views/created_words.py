@@ -1,5 +1,6 @@
 """View module for handling requests about user-created words"""
 from django.http import HttpResponseServerError
+from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User  # pylint:disable=imported-auth-user
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -17,7 +18,7 @@ class CreatedWordsSerializer(serializers.ModelSerializer):
             view_name='user', lookup_field='id')
         fields = ('id', 'user', 'word', 'pronunciation',
                   'definition', 'partOfSpeech', 'example')
-        # depth = 1
+        depth = 1
 
 
 class CreatedWordsView(ViewSet):
@@ -41,18 +42,19 @@ class CreatedWordsView(ViewSet):
             return HttpResponseServerError(ex)
 
     def list(self, request):
-        """Handle GET requests to get all created_words
+        """Handle GET requests to get all created_words authored by current user
 
         Returns:
             Response -- JSON serialized list of created_words
         """
-        created_words = CreatedWords.objects.all()
-
+        user_id = request.auth.user.id
+        user_created_words = CreatedWords.objects.filter(
+            user=user_id)
         # Note the additional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
         serializer = CreatedWordsSerializer(
-            created_words, many=True, context={'request': request})
+            user_created_words, many=True, context={'request': request})
         return Response(serializer.data)
 
     def create(self, request):
