@@ -17,7 +17,7 @@ class FavoritedWordsSerializer(serializers.ModelSerializer):
             view_name='user', lookup_field='id')
         fields = ('id', 'uuid', 'user', 'word',
                   'definition', 'partOfSpeech', 'link')
-        # depth = 1
+        depth = 1
 
 
 class FavoritedWordsView(ViewSet):
@@ -46,13 +46,14 @@ class FavoritedWordsView(ViewSet):
         Returns:
             Response -- JSON serialized list of favorited_words
         """
-        favorited_words = FavoritedWords.objects.all()
+        user_id = request.auth.user.id
+        user_favorited_words = FavoritedWords.objects.filter(user=user_id)
 
         # Note the additional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
         serializer = FavoritedWordsSerializer(
-            favorited_words, many=True, context={'request': request})
+            user_favorited_words, many=True, context={'request': request})
         return Response(serializer.data)
 
     def create(self, request):
