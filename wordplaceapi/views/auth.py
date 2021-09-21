@@ -68,5 +68,5 @@ def register_user(request):
 
     token = Token.objects.create(user=new_user)
     # Return the token to the client
-    data = json.dumps({'token': token.key, "id": new_user.id})
+    data = {'token': token.key, 'id': new_user.id}
     return Response(data)
